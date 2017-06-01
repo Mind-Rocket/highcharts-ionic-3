@@ -7,9 +7,13 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { SummaryPage } from '../pages/summary/summary';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+// import { ChartModule } from 'angular2-highcharts';
+
+declare var require: any;
 
 @NgModule({
   declarations: [
@@ -17,10 +21,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    SummaryPage
   ],
   imports: [
     BrowserModule,
+    // ChartModule.forRoot(require('highcharts')),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -29,6 +35,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AboutPage,
     ContactPage,
     HomePage,
+    SummaryPage,
     TabsPage
   ],
   providers: [
