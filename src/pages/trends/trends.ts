@@ -5,12 +5,12 @@ declare var require: any;
 var hcharts = require('highcharts');
 
 @Component({
-  selector: 'page-summary',
-  templateUrl: 'summary.html',
-  styleUrls: ['/summary.scss']
+  selector: 'page-trends',
+  templateUrl: 'trends.html',
+  styleUrls: ['/trends.scss']
 })
-export class SummaryPage {
-  @ViewChild('pieChart') chart: ElementRef;
+export class TrendsPage {
+  @ViewChild('columnChart') chart: ElementRef;
   chartObject: any;
   data = [29.9, 71.5, 106.4, 129.2, 300];
 
@@ -34,6 +34,7 @@ export class SummaryPage {
             }, 100)
           }
         }*/
+        type: 'column'
       },
       title: { text: 'simple chart' },
       series: [{

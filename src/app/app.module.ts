@@ -3,26 +3,25 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SummaryPage } from '../pages/summary/summary';
+import { TrendsPage } from '../pages/trends/trends';
+import { BluetoothPage } from '../pages/bluetooth/bluetooth';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 // import { ChartModule } from 'angular2-highcharts';
+import { BLE } from '@ionic-native/ble'
 
-declare var require: any;
+// declare var require: any;
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
     TabsPage,
-    SummaryPage
+    SummaryPage,
+    TrendsPage,
+    BluetoothPage
   ],
   imports: [
     BrowserModule,
@@ -32,15 +31,15 @@ declare var require: any;
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
     SummaryPage,
-    TabsPage
+    TrendsPage,
+    TabsPage,
+    BluetoothPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    BLE,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
