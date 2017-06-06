@@ -1,11 +1,5 @@
-page-summary{
-  h2 {
-    background: black;
-    color: white;
-  }
-
-  .chart__container {
-    width: 100%;
-    height: 300px;
+page-bluetooth{
+  button.connected {
+    background-color: color($colors, light-blue);
   }
 }

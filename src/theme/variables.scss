@@ -32,9 +32,10 @@ $colors: (
 
 $background-color: color($colors, dark-blue);
 $toolbar-background: darken(color($colors, dark-blue), 2);
-$tabs-background: darken(color($colors, dark-blue), 2);
+$tabs-md-background: darken(color($colors, dark-blue), 2);
+$tabs-ios-background: transparent;
 $tabs-tab-color-active: color($colors, light-blue);
-
+$list-background-color: transparent;
 
 
 

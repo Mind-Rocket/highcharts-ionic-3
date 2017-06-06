@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { BLE } from '@ionic-native/ble'
 
 @Component({
@@ -10,8 +10,11 @@ import { BLE } from '@ionic-native/ble'
 export class BluetoothPage {
   isEnabled;
   foundDevices = [];
+  bleStatus = '';
+  loading;
+  connectedTo = [];
 
-  constructor(public navCtrl: NavController, private ble: BLE, private ref: ChangeDetectorRef) {
+  constructor(public navCtrl: NavController, private ble: BLE, private ref: ChangeDetectorRef, public loadingCtrl: LoadingController) {
   }
 
   ionViewDidEnter(){
@@ -26,9 +29,20 @@ export class BluetoothPage {
   }
 
   startScan(){
+    this.bleStatus = 'scanning';
+
+    this.presentLoader(this.bleStatus);
+
     console.log('starting scan, resetting foundDevices');
     this.foundDevices = [];
-    let subscription = this.ble.scan([], 5).subscribe(
+    this.connectedTo = [];
+    var scanTime = 5;
+
+    setTimeout(() => {
+      this.handleScanStop();
+    }, scanTime*1000 + 10);
+
+    let subscription = this.ble.scan([], scanTime).subscribe(
       (res) => {
         console.log('BLE scan success', res);
         if (res.name && res.name === "SSV1_00000"){
@@ -40,18 +54,47 @@ export class BluetoothPage {
     );
   }
 
+  presentLoader(content){
+    this.loading = this.loadingCtrl.create({
+      content
+    });
+
+    this.loading.present();
+  }
+
+  handleScanStop(){
+    console.log('scan is over');
+    this.bleStatus = 'connecting';
+
+    this.loading.dismiss();
+
+    this.connect(this.foundDevices[0]);
+
+    setTimeout(() => {
+      this.presentLoader(this.bleStatus);
+    },10);
+  }
+
   connect(device){
     console.log("need to connect to device", device);
     this.ble.isConnected(device.id).then((res) => {
         console.log('Connected => disconnect now');
         this.ble.disconnect(device.id);
+        this.connectedTo = this.connectedTo.filter((connectedDevice) => {
+          return connectedDevice !== device.id;
+        });
+        this.ref.detectChanges();
+        console.log('connectedTo', this.connectedTo);
     }, (err) => {
       console.log('Not connected => connect!');
 
       let subscription = this.ble.connect(device.id).subscribe(
         (res) => {
           console.log('BLE connect success', res);
+          this.connectedTo.push(res.id);
           this.sendConfirm(device.id);
+          this.loading.dismiss();
+          this.ref.detectChanges();
         }
       );
 

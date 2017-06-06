@@ -11,7 +11,8 @@ import { BluetoothPage } from '../pages/bluetooth/bluetooth';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 // import { ChartModule } from 'angular2-highcharts';
-import { BLE } from '@ionic-native/ble'
+import { BLE } from '@ionic-native/ble';
+import { DataService } from '../services/data.service';
 
 // declare var require: any;
 
@@ -40,6 +41,7 @@ import { BLE } from '@ionic-native/ble'
     StatusBar,
     SplashScreen,
     BLE,
+    DataService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
