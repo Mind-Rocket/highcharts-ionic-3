@@ -7,4 +7,13 @@
 <ion-content padding>
   <h2>Bluetooth!</h2>
   <p>Bluetooth Enabled? {{isEnabled}}</p>
+  <button ion-button full primary (click)="startScan()">Start Scan</button>
+
+  <ion-list>
+    <ion-list-header>Found Devices</ion-list-header>
+    <button ion-item *ngFor="let device of foundDevices; let i = index" (click)="connect(device)">
+      Device {{i}} - {{ device.name }}
+    </button>
+  </ion-list>
+  <button ion-button full secondary (click)="addRandomDevice()">Add device</button>
 </ion-content>
