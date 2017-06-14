@@ -8,6 +8,7 @@ import {BluetoothPage} from '../bluetooth/bluetooth';
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
+  currentTab: string = "Summary";
 
   tab1Root = SummaryPage;
   tab2Root = TrendsPage;
@@ -15,5 +16,10 @@ export class TabsPage {
 
   constructor() {
 
+  }
+
+  onTabSelect(ev: any){
+    console.log('Tab selected', 'Index: ' + ev.index, 'Unique ID: ' + ev.id);
+    this.currentTab = ev.id;
   }
 }

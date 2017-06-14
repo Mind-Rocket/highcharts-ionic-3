@@ -10,6 +10,7 @@ import { BluetoothPage } from '../pages/bluetooth/bluetooth';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { SuperTabsModule } from 'ionic2-super-tabs';
 // import { ChartModule } from 'angular2-highcharts';
 import { BLE } from '@ionic-native/ble';
 import { DataService } from '../services/data.service';
@@ -27,7 +28,8 @@ import { DataService } from '../services/data.service';
   imports: [
     BrowserModule,
     // ChartModule.forRoot(require('highcharts')),
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    SuperTabsModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -1,8 +1,18 @@
-<ion-tabs>
-  <!-- <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>
-  <ion-tab [root]="tab2Root" tabTitle="About" tabIcon="information-circle"></ion-tab>
-  <ion-tab [root]="tab3Root" tabTitle="Contact" tabIcon="contacts"></ion-tab> -->
+<!-- <ion-tabs>
   <ion-tab [root]="tab1Root" tabTitle="Summary" tabIcon="pie"></ion-tab>
   <ion-tab [root]="tab2Root" tabTitle="Trends" tabIcon="stats"></ion-tab>
   <ion-tab [root]="tab3Root" tabTitle="Bluetooth" tabIcon="bluetooth"></ion-tab>
-</ion-tabs>
+</ion-tabs> -->
+
+<!-- <ion-header>
+  <ion-navbar>
+    <ion-title>{{currentTab}}</ion-title>
+  </ion-navbar>
+</ion-header> -->
+
+
+<super-tabs toolbarColor="light-blue" indicatorColor="light-blue" badgeColor="light" [config]="{ sideMenu: 'left' }" (tabSelect)="onTabSelect($event)">
+  <super-tab [root]="tab1Root" id="Summary" title="Summary" icon="pie" color="light"></super-tab>
+  <super-tab [root]="tab2Root" id="Trends" title="Trends" icon="stats"></super-tab>
+  <super-tab [root]="tab3Root" id="Bluetooth" title="Bluetooth" icon="bluetooth"></super-tab>
+</super-tabs>
