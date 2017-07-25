@@ -18,3 +18,11 @@
 ion-content{
   background: linear-gradient(color($colors, dark-blue), color($colors, dark-blue), #000 );
 }
+
+super-tabs-toolbar > ion-toolbar.toolbar .tab-buttons-container .tab-buttons super-tab-button {
+  height: 30px;
+}
+
+super-tabs-toolbar > ion-toolbar.toolbar .tab-buttons-container .tab-buttons super-tab-button.icon-only ion-icon {
+  line-height: 24px;
+}

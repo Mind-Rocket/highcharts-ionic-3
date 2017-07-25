@@ -1,16 +1,18 @@
-<!-- <ion-header>
+ <ion-header no-border>
   <ion-navbar>
+    <button ion-button [menuToggle]="activeMenu">
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Bluetooth</ion-title>
   </ion-navbar>
-</ion-header> -->
+</ion-header> 
 
 <ion-content padding>
-  <h2>Bluetooth!</h2>
   <p>Bluetooth Enabled? {{isEnabled}}</p>
   <button ion-button full color="light-blue" (click)="startScan()">Start Scan</button>
 
   <ion-list>
-    <ion-list-header>Found Devices</ion-list-header>
+    <ion-list-header >Found Devices</ion-list-header>
     <button ion-item *ngFor="let device of foundDevices; let i = index" (click)="connect(device)">
       Device {{i}} - {{ device.name }}  <ion-icon item-end name="checkmark" color="light-blue" *ngIf="connectedTo.indexOf(device.id) > -1"></ion-icon>
     </button>

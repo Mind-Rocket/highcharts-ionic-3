@@ -1,18 +1,19 @@
-<!-- <ion-tabs>
-  <ion-tab [root]="tab1Root" tabTitle="Summary" tabIcon="pie"></ion-tab>
-  <ion-tab [root]="tab2Root" tabTitle="Trends" tabIcon="stats"></ion-tab>
-  <ion-tab [root]="tab3Root" tabTitle="Bluetooth" tabIcon="bluetooth"></ion-tab>
-</ion-tabs> -->
-
-<!-- <ion-header>
+ <ion-header no-border>
   <ion-navbar>
+    <button ion-button [menuToggle]="activeMenu">
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>{{currentTab}}</ion-title>
   </ion-navbar>
-</ion-header> -->
+</ion-header> 
 
+<ion-content>
+  <super-tabs toolbarColor="light-blue" indicatorColor="light-blue" badgeColor="light" [config]="{ sideMenu: 'left' }" (tabSelect)="onTabSelect($event)">
+    <super-tab [root]="tab1Root" id="Summary" title="" icon="pie" color="light"></super-tab>
+    <super-tab [root]="tab2Root" id="Lab" title="" icon="flask"></super-tab>
+    <super-tab [root]="tab3Root" id="Trends" title="" icon="stats"></super-tab>
+    <!-- <super-tab [root]="tab3Root" id="Bluetooth" title="" icon="bluetooth"></super-tab> -->
+    <super-tab [root]="tab4Root" id="Log" title="" icon="book"></super-tab>
+  </super-tabs>
+</ion-content>
 
-<super-tabs toolbarColor="light-blue" indicatorColor="light-blue" badgeColor="light" [config]="{ sideMenu: 'left' }" (tabSelect)="onTabSelect($event)">
-  <super-tab [root]="tab1Root" id="Summary" title="Summary" icon="pie" color="light"></super-tab>
-  <super-tab [root]="tab2Root" id="Trends" title="Trends" icon="stats"></super-tab>
-  <super-tab [root]="tab3Root" id="Bluetooth" title="Bluetooth" icon="bluetooth"></super-tab>
-</super-tabs>

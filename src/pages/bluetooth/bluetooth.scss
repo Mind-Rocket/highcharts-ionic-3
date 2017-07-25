@@ -2,4 +2,8 @@ page-bluetooth{
   button.connected {
     background-color: color($colors, light-blue);
   }
+
+  .list-header-md {
+    border-top: 0;
+  }
 }
