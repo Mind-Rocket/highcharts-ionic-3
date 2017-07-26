@@ -36,7 +36,7 @@ $tabs-md-background: darken(color($colors, dark-blue), 2);
 $tabs-ios-background: transparent;
 $tabs-tab-color-active: color($colors, light-blue);
 $list-background-color: transparent;
-
+$link-color: color($colors, light-blue);
 
 
 
@@ -44,15 +44,15 @@ $list-background-color: transparent;
 // --------------------------------------------------
 // iOS only Sass variables can go here
 
-
+$list-border-color: #dedede;
 
 
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 
-
-
+// $list-md-border-color: color($colors, light-blue);
+$text-input-md-highlight-color: color($colors, light-blue);
 
 // App Windows Variables
 // --------------------------------------------------

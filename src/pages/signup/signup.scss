@@ -1,3 +1,33 @@
 page-signup {
+     ion-content {
+        background: none;
+        background-image: url('../assets/img/bed-linen-blue.jpg');
+        background-size: cover;
+        background-position: center;
+        text-align: center;
+    }
+    .content-group {
+        position: absolute;
+        width: calc(100% - 32px);
+        top: 50%;
+        left: 16px;
+        transform: translateY(-50%);
+    }
 
+    .item-md, .item-ios {
+        padding-left: 0;
+    }
+
+    img {
+        width: 80%;
+    }
+
+    .margin-bottom {
+        margin-bottom: 12px;
+    }
+
+    .error {
+        color: color($colors, danger);
+        font-weight: bold;
+    }
 }

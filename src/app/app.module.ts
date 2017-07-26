@@ -1,8 +1,10 @@
-import { SignupPage } from './../pages/signup/signup';
-import { LoginPage } from './../pages/login/login';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { BLE } from '@ionic-native/ble';
@@ -17,9 +19,11 @@ import { TrendsPage } from '../pages/trends/trends';
 import { BluetoothPage } from '../pages/bluetooth/bluetooth';
 import { LabPage } from './../pages/lab/lab';
 import { LogPage } from './../pages/log/log';
-
+import { SignupPage } from './../pages/signup/signup';
+import { LoginPage } from './../pages/login/login';
 
 import { DataService } from '../services/data.service';
+import { APIService } from './../services/api.service';
 
 @NgModule({
   declarations: [
@@ -35,8 +39,10 @@ import { DataService } from '../services/data.service';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
-    SuperTabsModule.forRoot()
+    SuperTabsModule.forRoot(),
+    ReactiveFormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -55,6 +61,7 @@ import { DataService } from '../services/data.service';
     SplashScreen,
     BLE,
     DataService,
+    APIService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

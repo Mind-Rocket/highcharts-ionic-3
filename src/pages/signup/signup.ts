@@ -1,7 +1,9 @@
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { APIService } from './../../services/api.service';
 import { TabsPage } from './../tabs/tabs';
 import { LoginPage } from './../login/login';
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
  * Generated class for the SignupPage page.
@@ -14,13 +16,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-signup',
   templateUrl: 'signup.html',
 })
-export class SignupPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+export class SignupPage implements OnInit{
+  signupForm;
+  signingUp = false;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private api: APIService) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignupPage');
+  }
+
+  ngOnInit() {
+    this.signupForm = new FormGroup ({
+      email: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
+      password2: new FormControl('', Validators.required)
+    }, this.validatePasswordConfirmation.bind(this));
   }
 
   goToLogin() {
@@ -28,7 +39,25 @@ export class SignupPage {
   }
 
   signup() {
-    console.log('signing up');
-    this.navCtrl.setRoot(TabsPage);
+    console.log('sign up', this.signupForm);
+    if (!this.signupForm.valid) return false;
+
+    this.signingUp = true;
+    let email = this.signupForm.value.email;
+    let password = this.signupForm.value.password;
+
+    this.api.signup(email, password).subscribe(data => {
+      this.signingUp = false;
+      console.log('signup data', data);
+      this.navCtrl.setRoot(TabsPage);
+    }, error => {
+      console.log('signup error', error);
+      this.signingUp = false;
+    });
+    
   }
+
+  validatePasswordConfirmation(g: FormGroup): any{
+        return g.get('password').value === g.get('password2').value ? null : {'password_mismatch': true};
+    }
 }
