@@ -6,25 +6,28 @@
 
     <form novalidate [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
 
-        <ion-item >
-          <ion-label color="light" fixed>Email</ion-label>
-          <ion-input type="text" formControlName="email"></ion-input>
-        </ion-item>
+      <ion-item >
+        <ion-label color="light" fixed>Email</ion-label>
+        <ion-input type="text" formControlName="email"></ion-input>
+      </ion-item>
+      <p class="error" *ngIf="!loginForm.controls.email.valid && !loginForm.controls.email.pristine">A valid email is required</p> 
 
-        <ion-item class="margin-bottom">
-          <ion-label color="light" fixed>Password</ion-label>
-          <ion-input type="password" formControlName="password"></ion-input>
-        </ion-item>
 
-      <button ion-button block color="light-blue" type="submit" [disabled]="loggingIn">
+      <ion-item class="margin-bottom">
+        <ion-label color="light" fixed>Password</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+      <p class="error" *ngIf="!loginForm.controls.password.valid && !loginForm.controls.password.pristine">Password is required</p> 
+
+      <button ion-button block color="light-blue" type="submit" [disabled]="loggingIn || !loginForm.valid">
         <span *ngIf="!loggingIn">Login</span>
         <span *ngIf="loggingIn">Logging in...</span>
       </button>
 
     </form>
     <p class="error" *ngIf="loginError">{{loginError}}</p>
+     
     <p>Don't have an account? <a color="light-blue" (click)="goToSignUp()">Sign Up</a></p>
-
   </div>
 
 </ion-content>

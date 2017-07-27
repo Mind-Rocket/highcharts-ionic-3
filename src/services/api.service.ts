@@ -35,7 +35,7 @@ export class APIService {
             .flatMap( data => {
                 return this.getDataByToken(data.access_token);
             })
-            .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+            .catch((error:any) => Observable.throw(error.json() || 'Server error'));
     }
 
     signup(email, password){
@@ -51,6 +51,6 @@ export class APIService {
 
         return this.http.post(this.base + "register/", data, options)
             .map(res => res.json())
-            .catch( (error:any) => Observable.throw(error.json().error || 'Server error'))
+            .catch( (error:any) => Observable.throw(error.json() || 'Server error'))
     }
 }

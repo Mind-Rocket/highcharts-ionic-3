@@ -7,25 +7,32 @@
     <form novalidate [formGroup]="signupForm" (ngSubmit)="signup(signupForm)">
 
       <ion-item >
-        <ion-label color="light">Email</ion-label>
+        <ion-label fixed color="light">Email</ion-label>
         <ion-input type="text" value="" formControlName="email"></ion-input>
       </ion-item>
+      <p class="error" *ngIf="signupForm.controls.email.hasError('required') && signupForm.controls.email.touched">A valid email is required</p> 
 
       <ion-item >
-        <ion-label color="light">Password</ion-label>
+        <ion-label fixed color="light">Password</ion-label>
         <ion-input type="password" formControlName="password"></ion-input>
       </ion-item>
+      <p class="error" *ngIf="signupForm.controls.password.hasError('required') && signupForm.controls.password.touched">Password is required</p> 
 
-      <ion-item class="margin-bottom">
+      <ion-item fixed class="margin-bottom">
         <ion-label color="light">Confirm Password</ion-label>
         <ion-input type="password" formControlName="password2"></ion-input>
       </ion-item>
+      <p class="error" *ngIf="signupForm.controls.password2.hasError('required') && signupForm.controls.password2.touched">Confirm your password</p>
+      <p class="error" *ngIf="signupForm.errors && signupForm.errors.password_mismatch">Passwords do not match</p>
+      
+      <button ion-button block color="light-blue" type="submit"[disabled]="signingUp || !signupForm.valid">
+        <span *ngIf="!signingUp">Sign Up</span>
+        <span *ngIf="signingUp">Signing Up...</span>
+      </button>
 
-      <button ion-button block color="light-blue" type="submit">Sign Up</button>
+      <p class="error" *ngIf="signupError">{{signupError}}</p>
     </form>
-    <p class="error" *ngIf="signupForm.errors">
-      <span *ngIf="signupForm.errors.password_mismatch">Passwords do not match</span>
-    </p>
+    
     <p> Already have an account? <a (click)="goToLogin()">Login</a></p>
 
   </div>

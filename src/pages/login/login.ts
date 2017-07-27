@@ -34,6 +34,7 @@ export class LoginPage implements OnInit {
   }
 
   login() {
+    console.log('loginForm', this.loginForm);
     if (!this.loginForm.valid) return false;
 
     this.loggingIn = true;
@@ -46,7 +47,7 @@ export class LoginPage implements OnInit {
     }, error => {
       console.log('login error', error);
       this.loggingIn = false;
-      if (error === 'invalid_grant'){
+      if (error.error_description === "Invalid credentials given."){
         this.loginError = "Invalid email or password";
       }else {
         this.loginError = "Login failed. Please try again";

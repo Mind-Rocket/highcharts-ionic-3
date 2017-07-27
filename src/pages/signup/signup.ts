@@ -19,6 +19,7 @@ import { LoginPage } from './../login/login';
 export class SignupPage implements OnInit{
   signupForm;
   signingUp = false;
+  signupError: string;
   constructor(public navCtrl: NavController, public navParams: NavParams, private api: APIService) {
   }
 
@@ -53,6 +54,11 @@ export class SignupPage implements OnInit{
     }, error => {
       console.log('signup error', error);
       this.signingUp = false;
+      if (error.username.length){
+        this.signupError = "An account with that email already exists"
+      }else{
+        this.signupError = "Sign up failed. Please try again."
+      }
     });
     
   }
