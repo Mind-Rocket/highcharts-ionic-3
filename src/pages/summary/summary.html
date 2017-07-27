@@ -9,7 +9,13 @@
 
 <ion-content padding>
   <!-- <button ion-button full color="light-blue" (click)="updateChart()">Update Chart</button> -->
-  <div #pieChart class="chart__container">
-  </div>
+  <p *ngIf="currentDataSet && currentDataSet.proQualityScore">{{ currentDataSet.proQualityScore }}</p> 
+
+  <!-- <chart style="width: 100%"[options]="options" (load)="saveChart($event.context)"></chart> -->
+
+  <div #pieChart class="chart__container"></div> 
+
+  <button ion-button (click)="incrementCurrentDataSet()" [disabled]="dataService.currentDataSet === dataService.processData.length - 1">Increment dataset</button>
+  <button ion-button (click)="decrementCurrentDataSet()" [disabled]="dataService.currentDataSet === 0">Decrement dataset</button>
 
 </ion-content>

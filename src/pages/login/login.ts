@@ -1,3 +1,4 @@
+import { DataService } from './../../services/data.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -20,7 +21,7 @@ export class LoginPage implements OnInit {
   loginForm;
   loggingIn = false;
   loginError: string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private api: APIService) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, private api: APIService, private dataService: DataService) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -43,6 +44,10 @@ export class LoginPage implements OnInit {
 
     this.api.login(email,password).subscribe(data => {
       console.log('login data', data);
+      this.dataService.processData = data.processData;
+      this.dataService.profileData = data.profileData;
+      this.dataService.trendData = data.trendData;
+      this.dataService.sleepCount = data.sleepCount;
       this.navCtrl.setRoot(TabsPage);
     }, error => {
       console.log('login error', error);

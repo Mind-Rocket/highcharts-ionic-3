@@ -10,6 +10,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { BLE } from '@ionic-native/ble';
 
 import { SuperTabsModule } from 'ionic2-super-tabs';
+import { ChartModule } from 'angular2-highcharts'
 
 import { MyApp } from './app.component';
 
@@ -24,6 +25,9 @@ import { LoginPage } from './../pages/login/login';
 
 import { DataService } from '../services/data.service';
 import { APIService } from './../services/api.service';
+
+declare var require: any;
+var hcharts = require('highcharts');
 
 @NgModule({
   declarations: [
@@ -42,7 +46,8 @@ import { APIService } from './../services/api.service';
     HttpModule,
     IonicModule.forRoot(MyApp),
     SuperTabsModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ChartModule.forRoot(hcharts)
   ],
   bootstrap: [IonicApp],
   entryComponents: [

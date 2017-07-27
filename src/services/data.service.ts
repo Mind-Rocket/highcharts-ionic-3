@@ -1,5 +1,13 @@
 export class DataService {
   private pieData = [100, 50, 200, 25, 75, 150];
+
+  processData;
+  trendData;
+  profileData;
+  sleepCount;
+  currentDataSet = 0;
+
+  
     // username: "",
     // name: "",
     // email: "",

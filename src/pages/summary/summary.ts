@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { DataService } from '../../services/data.service';
 
@@ -10,18 +10,80 @@ var hcharts = require('highcharts');
   templateUrl: 'summary.html',
   styleUrls: ['/summary.scss']
 })
-export class SummaryPage {
+export class SummaryPage implements AfterViewInit{
   @ViewChild('pieChart') chart: ElementRef;
   chartObject: any;
   data = [29.9, 71.5, 106.4, 129.2, 300];
+  currentDataSet: any;
 
   constructor(public navCtrl: NavController, private dataService: DataService) {
+    console.log('in summary constructor');
+    this.currentDataSet = this.dataService.processData[this.dataService.currentDataSet];
+    
+    this.updatePieData();
 
+    
+  }
+  options;
+  chart2: Object;
+  saveChart(chart) {
+    this.chart2 = chart;
   }
 
-  ionViewDidEnter(){
-    this.data = this.dataService.getPieData();
+  incrementCurrentDataSet() {
+    this.dataService.currentDataSet++;
+    this.currentDataSet = this.dataService.processData[this.dataService.currentDataSet];
+    this.updatePieData();
+    this.updateChart();
+  }
+
+  decrementCurrentDataSet() {
+    this.dataService.currentDataSet--;
+    this.currentDataSet = this.dataService.processData[this.dataService.currentDataSet];
+    this.updatePieData();
+    this.updateChart();
+  }
+
+  updatePieData() {
+    this.data = [
+      this.currentDataSet.proSleepLvlDeep, 
+      this.currentDataSet.proSleepLvlLight, 
+      this.currentDataSet.proSleepLvlRestless, 
+      this.currentDataSet.proSleepLvlAwake, 
+      this.currentDataSet.proSleepLvlNoEEG, 
+      (this.currentDataSet.proSleepLvlDeep + 
+        this.currentDataSet.proSleepLvlLight + 
+        this.currentDataSet.proSleepLvlRestless + 
+        this.currentDataSet.proSleepLvlAwake + 
+        this.currentDataSet.proSleepLvlNoEEG) * (100/this.currentDataSet.proQualityScore - 1)
+    ];
+  }
+
+  ngAfterViewInit() {
+     this.options = {
+      title : { text : 'angular2-highcharts example' },
+      series: [{
+          name: 's1',
+          data: [2,3,5,8,13],
+          allowPointSelect: true
+      },{
+          name: 's2',
+          data: [-2,-3,-5,-8,-13],
+          allowPointSelect: true
+      }]
+    };
+  }
+
+  ionViewDidEnter() {
+    console.log('summary page - view did enter');
     this.renderChart();
+  }
+
+  updateChart() {
+    console.log("update chart", this.chartObject);
+    this.chartObject.series[0].update({
+        data: this.createPieData(this.data),
+    });
   }
 
   renderChart(){
@@ -63,10 +125,10 @@ export class SummaryPage {
     });
   }
 
-  updateChart(){
-    this.data.push(500);
-    this.renderChart();
-  }
+  // updateChart(){
+  //   this.data.push(500);
+  //   this.renderChart();
+  // }
 
   createPieData(arr){
     var colors = [
