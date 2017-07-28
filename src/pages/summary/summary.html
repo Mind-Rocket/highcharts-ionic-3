@@ -1,21 +1,31 @@
- <!-- <ion-header>
-  <ion-navbar>
-    <button ion-button [menuToggle]="activeMenu">
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Summary</ion-title>
-  </ion-navbar>
-</ion-header>  -->
-
 <ion-content padding>
-  <!-- <button ion-button full color="light-blue" (click)="updateChart()">Update Chart</button> -->
-  <p *ngIf="currentDataSet && currentDataSet.proQualityScore">{{ currentDataSet.proQualityScore }}</p> 
+  
 
   <!-- <chart style="width: 100%"[options]="options" (load)="saveChart($event.context)"></chart> -->
+  <div class="chart__container">
+    <div #pieChart class="chart__plot"></div> 
+    <p class="chart__overlay" *ngIf="currentDataSet && currentDataSet.proQualityScore">{{ currentDataSet.proQualityScore }}</p> 
+  </div>
+  
 
-  <div #pieChart class="chart__container"></div> 
-
-  <button ion-button (click)="incrementCurrentDataSet()" [disabled]="dataService.currentDataSet === dataService.processData.length - 1">Increment dataset</button>
-  <button ion-button (click)="decrementCurrentDataSet()" [disabled]="dataService.currentDataSet === 0">Decrement dataset</button>
+  <ion-row text-center>
+    
+    <ion-col col-2>
+      <button ion-button clear icon-only color="light-blue" class="date-controls__arrow" (click)="incrementCurrentDataSet()" [disabled]="dataService.currentDataSet === dataService.processData.length - 1">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-col>
+    
+    <ion-col col-8>
+      <div class="date-controls__current">{{ currentDataSet.proTimeToBed | date }}</div>
+    </ion-col>
+    
+    <ion-col col-2>
+      <button ion-button clear icon-only color="light-blue" class="date-controls__arrow" (click)="decrementCurrentDataSet()" [disabled]="dataService.currentDataSet === 0">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-col>
+    
+  </ion-row>
 
 </ion-content>

@@ -1,9 +1,31 @@
 page-summary{
-  .chart__container{
-    height: 250px;
+
+  $chart-height: 60vw;
+
+  .chart__plot {
+    height: $chart-height;
   }
 
-  .highcharts-container {
+  .chart__container{
+    height: $chart-height;
+    position: relative;
+  }
+
+  .chart__overlay {
+    position: absolute;
+    margin: 0;
+    top: 0;
     width: 100%;
+    text-align: center;
+    line-height: $chart-height;
+    font-size: 60px;
+  }
+
+  .date-controls__current {
+    line-height: 36px;
+  }
+
+  .date-controls__arrow {
+    margin: 0;
   }
 }

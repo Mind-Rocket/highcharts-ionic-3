@@ -1,3 +1,4 @@
+import { PlotService } from './../services/plot.service';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
@@ -67,6 +68,7 @@ var hcharts = require('highcharts');
     BLE,
     DataService,
     APIService,
+    PlotService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
