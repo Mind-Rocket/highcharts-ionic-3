@@ -1,3 +1,16 @@
 page-lab {
+    $chart-height: 60vw;
 
+    .chart__container{
+        height: $chart-height;
+        position: relative;
+    }
+
+    .date-controls__current {
+        line-height: 36px;
+    }
+
+    .date-controls__arrow {
+        margin: 0;
+    }
 }

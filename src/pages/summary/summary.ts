@@ -51,7 +51,8 @@ export class SummaryPage{
   }
 
   ionViewDidEnter() {
-    console.log('summary page - view did enter');
+    console.log('summary page - view did enter', this.dataService.currentDataSet);
+    this.currentDataSet = this.dataService.processData[this.dataService.currentDataSet];
     this.renderChart();
   }
 

@@ -15,7 +15,7 @@ var hcharts = require('highcharts');
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = LoginPage;
+  rootPage: any = LoginPage;
   @ViewChild(Nav) nav;
   bluetoothPage = BluetoothPage;
   tabsPage = TabsPage;
@@ -28,19 +28,22 @@ export class MyApp {
       splashScreen.hide();
 
       hcharts.setOptions({
-        colors: ['#33495d', '#63a2c5', '#FBE372', '#33495d', '#d6e7c5', '#63a2c5', '#A0A0A0 ','#667786','#5b7ba1']
+        colors: ['#33495d', '#63a2c5', '#FBE372', '#33495d', '#d6e7c5', '#63a2c5', '#A0A0A0 ', '#667786', '#5b7ba1'],
+        global: {
+          useUTC: false
+        }
       });
-    });
-  }
+  });
+}
 
-  onSetPage(page) {
-    this.menuCtrl.close();
-    this.nav.setRoot(page);
-  }
+onSetPage(page) {
+  this.menuCtrl.close();
+  this.nav.setRoot(page);
+}
 
-  onLogout() {
-    console.log('logging out');
-    this.menuCtrl.close();
-    this.nav.setRoot(LoginPage);
-  }
+onLogout() {
+  console.log('logging out');
+  this.menuCtrl.close();
+  this.nav.setRoot(LoginPage);
+}
 }
