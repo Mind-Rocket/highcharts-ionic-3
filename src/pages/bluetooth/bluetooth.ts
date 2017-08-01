@@ -1,4 +1,5 @@
-import { Component, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { BLECommandsService } from './../../services/bleCommands.service';
+import { Component, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { BLE } from '@ionic-native/ble'
 
@@ -7,14 +8,15 @@ import { BLE } from '@ionic-native/ble'
   templateUrl: 'bluetooth.html',
   styleUrls: ['/bluetooth.scss']
 })
-export class BluetoothPage {
+export class BluetoothPage implements OnDestroy{
   isEnabled;
   foundDevices = [];
   bleStatus = '';
   loading;
   connectedTo = [];
+  subscription;
 
-  constructor(public navCtrl: NavController, private ble: BLE, private ref: ChangeDetectorRef, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, private ble: BLE, private ref: ChangeDetectorRef, public loadingCtrl: LoadingController, private bleCommandsService: BLECommandsService) {
   }
 
   ionViewDidEnter(){
@@ -42,7 +44,7 @@ export class BluetoothPage {
       this.handleScanStop();
     }, scanTime*1000 + 10);
 
-    let subscription = this.ble.scan([], scanTime).subscribe(
+    this.subscription = this.ble.scan([], scanTime).subscribe(
       (res) => {
         console.log('BLE scan success', res);
         if (res.name && res.name === "SSV1_00000"){
@@ -88,13 +90,28 @@ export class BluetoothPage {
     }, (err) => {
       console.log('Not connected => connect!');
 
-      let subscription = this.ble.connect(device.id).subscribe(
+      this.subscription = this.ble.connect(device.id).subscribe(
         (res) => {
           console.log('BLE connect success', res);
-          this.connectedTo.push(res.id);
           this.sendConfirm(device.id);
-          this.loading.dismiss();
-          this.ref.detectChanges();
+          this.subscription = this.ble.startNotification(device.id, "ffe0", "ffe1").subscribe(
+            res => {
+              console.log('notification res', res);
+              this.connectedTo.push(res.id);
+              
+              this.loading.dismiss();
+              this.ref.detectChanges();
+            },
+
+            error => {
+              console.log('notification error', error);
+            }
+          )
+
+         
+        },
+        error => {
+          console.log('connect error', error);
         }
       );
 
@@ -103,14 +120,17 @@ export class BluetoothPage {
   }
 
   sendConfirm(deviceId){
-    let confirmCommand = new Uint8Array([0xAA, 0xAA, 0x03, 0x9A, 0x10, 0x01, 0x54]);
-    this.ble.writeWithoutResponse(deviceId, "ffe0", "ffe1", confirmCommand.buffer).then(
+    this.ble.writeWithoutResponse(deviceId, "ffe0", "ffe1", this.bleCommandsService.commands.confirm.buffer).then(
       (res) => {
         console.log('write success', res);
       }, (err) => {
         console.log('write error', err);
       }
     );
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) this.subscription.unsubscribe();
   }
 
 }

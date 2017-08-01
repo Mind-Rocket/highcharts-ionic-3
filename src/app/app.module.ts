@@ -1,3 +1,4 @@
+import { BLECommandsService } from './../services/bleCommands.service';
 import { PlotService } from './../services/plot.service';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -69,6 +70,7 @@ var hcharts = require('highcharts');
     DataService,
     APIService,
     PlotService,
+    BLECommandsService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
