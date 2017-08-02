@@ -103,7 +103,7 @@ export class BluetoothPage implements OnDestroy{
               this.ref.detectChanges();
               this.ble.writeWithoutResponse(device.id, "ffe0", "ffe1", this.bleCommandsService.commands.getVolume.buffer).then(
                 (res) => {
-                  console.log('write getVolume  success', res);
+                  console.log('write getVolume success', res);
                 }, (err) => {
                   console.log('write getVolume error', err);
                 }
