@@ -96,11 +96,18 @@ export class BluetoothPage implements OnDestroy{
           this.sendConfirm(device.id);
           this.subscription = this.ble.startNotification(device.id, "ffe0", "ffe1").subscribe(
             res => {
-              console.log('notification res', res);
+              console.log('notification res', this.bytesToString(res));
               this.connectedTo.push(res.id);
               
               this.loading.dismiss();
               this.ref.detectChanges();
+              this.ble.writeWithoutResponse(device.id, "ffe0", "ffe1", this.bleCommandsService.commands.getVolume.buffer).then(
+                (res) => {
+                  console.log('write getVolume  success', res);
+                }, (err) => {
+                  console.log('write getVolume error', err);
+                }
+              );
             },
 
             error => {
@@ -118,7 +125,10 @@ export class BluetoothPage implements OnDestroy{
     });
 
   }
-
+  bytesToString(buffer) {
+    return new Uint8Array(buffer);
+    // return String.fromCharCode.apply(null, new Uint8Array(buffer));
+  }
   sendConfirm(deviceId){
     this.ble.writeWithoutResponse(deviceId, "ffe0", "ffe1", this.bleCommandsService.commands.confirm.buffer).then(
       (res) => {
