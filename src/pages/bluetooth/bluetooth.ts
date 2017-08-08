@@ -70,7 +70,9 @@ export class BluetoothPage implements OnDestroy{
 
     this.loading.dismiss();
 
-    this.connect(this.foundDevices[0]);
+    this.bleCommandsService.deviceId = this.foundDevices[0].id;
+    this.bleCommandsService.connectAndStartNotify().subscribe();
+    //this.connect(this.foundDevices[0]);
 
     setTimeout(() => {
       this.presentLoader(this.bleStatus);
